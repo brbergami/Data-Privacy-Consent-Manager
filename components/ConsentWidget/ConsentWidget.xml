@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="ConsentWidget" extends="Group" >
+    <script type="text/brightscript" uri="ConsentWidget.brs" />
+    <script type="text/brightscript" uri="ConsentWidgetLogic.brs" />
+    <interface>
+        <field id="availableZones" type="assocarray" value="{}" />
+    </interface>
+    <children>
+        <Group>
+            <Rectangle
+                id = "bg"
+                >
+                <CheckList
+                    id = "checklist"
+                    >
+                    <ContentNode
+                        id = "checklistOptions"
+                        role = "content"
+                        />
+                </CheckList>
+                <Label
+                    id = "title"
+                    >
+                </Label>
+                <Button
+                    id = "confirmButton"
+                    />
+            </Rectangle>
+        </Group>
+    </children>
+</component>
