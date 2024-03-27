@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="HttpRequests" extends="Task">
+    <interface>
+        <field id="content" type="node" />
+        <field id="response" type="assocarray" value="{}" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/tasks/HttpRequests.brs" />
+</component>
