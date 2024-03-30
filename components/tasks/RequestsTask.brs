@@ -2,7 +2,7 @@ sub init()
     m.top.functionName = "makeRequest"
 end sub
 
-function makeRequest(api as String, data as Object) as Void
+function makePostRequest(api as String, data as Object) as Void
     postRequest = createObject("roUrlTransfer")
     postRequest.setCertificatesFile("common:/certs/ca-bundle.crt")
     postRequest.initClientCertificates()
@@ -17,13 +17,14 @@ function makeRequest(api as String, data as Object) as Void
     postRequest.setBody(data)
     postRequest.asyncPostFromString()
     response = wait(2000, postRequest.getMessagePort())
-    validateResponse(response)
+    if type(response) = "roUrlEvent"
+        validateResponse(response)
+    end if
 end function
 
-function validateResponse(response) as Void
-    responseData = response.getToString()
-    if responseData <> invalid and responseData <> ""
-        parsedData = parseJson(responseData)
-        m.top.response = parsedData
+function validateResponse(response as Object) as Void
+    if response.getResponseCode() = 200
+        responseBody = response.getToString()
+        m.top.response = parseJson(responseBody)
     end if
 end function
