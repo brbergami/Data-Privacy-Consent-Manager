@@ -32,7 +32,7 @@ sub onUSPScallResponse(event as Object)
     m.requestStateCode.unobserveFieldScoped("response")
     response = event.getData()
     m.USPSCode = response?.state
-    m.title.text += m.USPSCode
+    m.title.text += m.USPSCode.toStr()
 end sub
 
 sub checkUserCanConsent()
