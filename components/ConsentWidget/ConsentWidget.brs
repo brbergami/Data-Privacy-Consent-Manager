@@ -18,8 +18,25 @@ sub setStyle()
     m.checklist.translation = [20, 20]
     m.checklist.height = 400
     m.checklist.width = 960
+    checkListContent = [
+        {
+            text: "I give consent to third parties",
+            checked: false,
+            style: {
+                opacity: 1
+            }
+        },
+        {
+            text: "I accept terms and conditions",
+            checked: false,
+            style: {
+                opacity: 1
+            }
+        },
+    ]
+    m.checklist.setContent(checkListContent)
 
-    m.title.text = "Data Consent options"
+    m.title.text = "Data Consent options for "
     m.title.font = "MediumBoldSystemFont"
     m.title.translation = [960, 640]
 
