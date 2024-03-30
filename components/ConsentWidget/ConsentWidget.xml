@@ -12,13 +12,7 @@
                 id = "bg"
                 >
                 <CheckList
-                    id = "checklist"
-                    >
-                    <ContentNode
-                        id = "checklistOptions"
-                        role = "content"
-                        />
-                </CheckList>
+                    id = "checklist" />
                 <Label
                     id = "title"
                     >
