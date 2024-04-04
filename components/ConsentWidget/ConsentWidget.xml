@@ -5,6 +5,7 @@
     <script type="text/brightscript" uri="ConsentWidgetLogic.brs" />
     <interface>
         <field id="availableZones" type="assocarray" value="{}" />
+        <field id="userAccepted" type="boolean" />
     </interface>
     <children>
         <Group>
