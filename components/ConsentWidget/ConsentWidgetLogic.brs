@@ -1,8 +1,12 @@
+' If user changes region that should be considered
+' even when reading from registry
+
 sub initialize() ' Check if this is the correct approach
     getZIPCode()
     createUSPScall()
     createUnavailableZonesCall()
     checkUserCanConsent()
+    m.userCannotConsent = false
 end sub
 
 ' Get ZIP Code
@@ -36,8 +40,9 @@ sub onUSPScallResponse(event as Object)
 end sub
 
 sub checkUserCanConsent()
-    for i = 0 in m.cannotConsent.count()
+    for i = 0 to m.cannotConsent.count()
         if m.cannotConsentZones[i] = m.USPSCode
+            m.userCannotConsent = true
             for each item in m.checklist.content
                 item.checkOnSelect = false
                 item.checkedState = true
@@ -45,6 +50,41 @@ sub checkUserCanConsent()
                     opacity: 0.5
                 }
             end for
+            m.checklist.isFocusable = false
+            m.confirmButton.setFocus(true)
         end if
+        return
     end for
+    m.checklist.setFocus(true)
 end sub
+
+sub handleAccept()
+    consentOptions = {}
+    for each item in m.checklist.content
+        consent[item.id] = item.checked
+    end for
+    m.global.addFields({
+        consent: {
+            consentOptions: consentOptions,
+            userState: m.USPSCode
+        }
+    })
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    handled = false
+    if press
+        if key = "OK"
+            if m.confirmButton.hasFocus()
+                handleAccept()
+            end if
+            handled = true
+        else if key = "left"
+            if m.userCannotConsent = false
+                m.checklist.setFocus(true)
+            end if
+            handled = true
+        end if
+    end if
+    return handled
+end function
