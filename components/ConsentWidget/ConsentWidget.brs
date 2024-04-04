@@ -20,6 +20,7 @@ sub setStyle()
     m.checklist.width = 960
     checkListContent = [
         {
+            id: "thirdParty"
             text: "I give consent to third parties",
             checked: false,
             style: {
@@ -27,6 +28,7 @@ sub setStyle()
             }
         },
         {
+            id: "tos"
             text: "I accept terms and conditions",
             checked: false,
             style: {
