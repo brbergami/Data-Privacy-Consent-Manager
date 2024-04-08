@@ -1,15 +1,21 @@
-sub init()
-    m.section = createObject("roRegistrySection", "privacyConsent")
-end sub
+function userGaveConsentPreviously() as Boolean
+    gaveConsent = false
+    registry = createObject("roRegistry")
+    sections = registry.getSectionList()
+    if sections.indexOf("privacyConsent") <> -1 then gaveConsent = true
+    return gaveConsent
+end function
 
-sub setEntry(key as String, value as String)
-    m.section.write(key, value)
-    m.section.flush()
-end sub
-
-function getEntry(key as String) as Dynamic
-    if m.section.exists(key)
-        return m.section.read(key)
+function getRegistryEntry(key as String) as Dynamic
+    section = createObject("roRegistrySection", "privacyConsent")
+    if section.exists(key)
+        return section.read(key)
     end if
     return invalid
 end function
+
+sub setRegistryEntry(key as String, value as String)
+    section = createObject("roRegistrySection", "privacyConsent")
+    section.write(key, value)
+    section.flush()
+end sub
