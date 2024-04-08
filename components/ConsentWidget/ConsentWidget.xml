@@ -3,6 +3,7 @@
 <component name="ConsentWidget" extends="Group" >
     <script type="text/brightscript" uri="ConsentWidget.brs" />
     <script type="text/brightscript" uri="ConsentWidgetLogic.brs" />
+    <script type="text/brightscript" uri="RegistryService.brs" />
     <interface>
         <field id="availableZones" type="assocarray" value="{}" />
         <field id="userAccepted" type="boolean" />
@@ -13,11 +14,11 @@
                 id = "bg"
                 >
                 <CheckList
-                    id = "checklist" />
+                    id = "checklist"
+                    />
                 <Label
                     id = "title"
-                    >
-                </Label>
+                    />
                 <Button
                     id = "confirmButton"
                     />

@@ -62,6 +62,7 @@ sub handleAccept()
     consentOptions = {}
     for each item in m.checklist.content
         consent[item.id] = item.checked
+        consent[item.id] = item.checkedState
     end for
     m.global.addFields({
         consent: {
