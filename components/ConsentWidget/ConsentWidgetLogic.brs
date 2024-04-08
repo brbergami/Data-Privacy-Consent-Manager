@@ -46,9 +46,7 @@ sub checkUserCanConsent()
             for each item in m.checklist.content
                 item.checkOnSelect = false
                 item.checkedState = true
-                item.style = {
-                    opacity: 0.5
-                }
+                item.opacity = 0.5
             end for
             m.checklist.isFocusable = false
             m.confirmButton.setFocus(true)
