@@ -7,6 +7,18 @@ sub initialize() ' Check if this is the correct approach
     createUnavailableZonesCall()
     checkUserCanConsent()
     m.userCannotConsent = false
+sub initialize()
+    if userGaveConsentPreviously()
+        getRegistryEntry("user")
+        ' set in the
+        ' dismiss this widget
+    else
+        getZIPCode()
+        createUSPScall()
+        createUnavailableZonesCall()
+        checkUserCanConsent()
+        m.userCannotConsent = false
+    end if
 end sub
 
 ' Get ZIP Code
