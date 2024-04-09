@@ -18,19 +18,19 @@ sub setStyle()
     m.checklist.translation = [20, 20]
     checkListContent = createObject("roSGNode", "ContentNode")
     checkListItem1 = checkListContent.createChild("ContentNode")
-    checkListItem1.setFields({
+    checkListItem1.update({
         title: "thirdParty"
         text: "I give consent to third parties"
         checkedState: false
         opacity: 1
-    })
+    }, true)
     checkListItem2 = checkListContent.createChild("ContentNode")
-    checkListItem2.setFields({
+    checkListItem2.update({
         title: "tos"
         text: "I accept terms and conditions"
         checkedState: false
         opacity: 1
-    })
+    }, true)
 
     m.title.text = "Data Consent options for "
     m.title.font = "MediumBoldSystemFont"
