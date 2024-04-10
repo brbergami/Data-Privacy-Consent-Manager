@@ -54,14 +54,14 @@ end sub
 
 ' Get ZIP Code
 sub getZIPCode()
-    channelStore = createObject("roSGNode", "ChannelStore")
-    channelStore.getUserRegionData()
-    channelStore.observeField("userRegionData", "somethingHappened")
+    m.channelStore = createObject("roSGNode", "ChannelStore")
+    m.channelStore.observeField("userRegionData", "onUserRegionDataChanges")
+    m.channelStore.command = "getUserRegionData"
 end sub
 
-sub somethingHappened(event as Object)
+sub onUserRegionDataChanges(event as Object)
     region = event.getData()
-    m.zipCode = region?.zipCode
+    m.zipCode = region.zipCode
 end sub
 
 ' Get State Code using ZIP Code
