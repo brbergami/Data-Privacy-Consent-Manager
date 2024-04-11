@@ -67,13 +67,13 @@ end sub
 ' Get State Code using ZIP Code
 sub createUSPScall()
     m.requestStateCode = createObject("roSGNode", "RequestsTask")
+    m.requestStateCode.observeFieldScoped("response", "onUSPScallResponse")
     m.requestStateCode.callfunc("makePostRequest", {
         api: "https://api.usps.com/addresses/v1/city-state",
         data: {
             ZIPCode: m.zipCode
         }
     })
-    m.requestStateCode.observeFieldScoped("response", "onUSPScallResponse")
 end sub
 
 ' Get Restricted zones on static endpoint. Using this locally atm

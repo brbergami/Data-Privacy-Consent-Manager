@@ -1,5 +1,6 @@
 sub init()
-    m.top.functionName = "makeRequest"
+    m.top.functionName = "makePostRequest"
+    m.top.control = "RUN"
 end sub
 
 function makePostRequest(api as String, data as Object) as Void
