@@ -2,7 +2,9 @@ function userGaveConsentPreviously() as Boolean
     gaveConsent = false
     registry = createObject("roRegistry")
     sections = registry.getSectionList()
-    if sections.indexOf("privacyConsent") <> -1 then gaveConsent = true
+    if sections.count() > 0 and sections.indexOf("privacyConsent") <> -1
+         gaveConsent = true
+    end if
     return gaveConsent
 end function
 
