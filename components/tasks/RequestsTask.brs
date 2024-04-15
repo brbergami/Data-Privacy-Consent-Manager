@@ -1,31 +1,39 @@
 sub init()
-    m.top.functionName = "makePostRequest"
-    m.top.control = "RUN"
+    m.top.functionName = "makeRequest"
 end sub
 
-function makePostRequest(api as String, data as Object) as Void
-    postRequest = createObject("roUrlTransfer")
-    postRequest.setCertificatesFile("common:/certs/ca-bundle.crt")
-    postRequest.initClientCertificates()
-    postRequest.setUrl(api)
-    postRequest.setRequest("POST")
-    postRequest.setMessagePort(createObject("roMessagePort"))
-    postRequest.enableEncodings(true)
-    postRequest.addHeader("Content-Type", "application/json")
-    if type(data) = "roAssociativeArray" or type(data) = "roArray"
-        data = formatJson(data)
+sub makeRequest()
+    request = createObject("roUrlTransfer")
+    port = createObject("roMessagePort")
+    request.setMessagePort(port)
+    if left(m.top.request.api, 5) = "https"
+        request.setCertificatesFile("common:/certs/ca-bundle.crt")
+        request.initClientCertificates()
+        ' request.enableEncodings(true) ' Check this required '
     end if
-    postRequest.setBody(data)
-    postRequest.asyncPostFromString()
-    response = wait(2000, postRequest.getMessagePort())
-    if type(response) = "roUrlEvent"
-        validateResponse(response)
+    request.setRequest(m.top.request.requesttype)
+    if m.top.request.requesttype = "get"
+        queryParams = "?"
+        params = m.top.request.payload.keys()
+        for each param in params:
+            queryParams += param + "=" + m.top.request.payload[param] + "&"
+        end for
+        queryParams = right(queryParams, 1)
+        request.setUrl(m.top.request.api + queryParams)
+        response = request.getToString()
+        ' response = request.asyncGetToString() ' TBD '
+    else if m.top.request.requesttype = "post"
+        request.addHeader("Content-Type", "application/json")
+        payload = formatJson(m.top.request.params)
+        request.setUrl(m.top.request.api)
+        request.asyncPostFromString(payload)
     end if
-end function
+    message = wait(5000, request)
+    m.top.request = {}
+    validateResponse(message)
+end sub
 
-function validateResponse(response as Object) as Void
-    if response.getResponseCode() = 200
-        responseBody = response.getToString()
-        m.top.response = parseJson(responseBody)
-    end if
-end function
+sub validateResponse(response as Object)
+    responseBody = response.getString()
+    m.top.response = parseJson(responseBody)
+end sub
