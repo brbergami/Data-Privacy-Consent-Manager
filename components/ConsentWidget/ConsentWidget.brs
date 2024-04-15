@@ -61,7 +61,7 @@ end sub
 
 sub onUserRegionDataChanges(event as Object)
     region = event.getData()
-    m.zipCode = region.zipCode
+    m.zipCode = region.zip
 end sub
 
 ' Get State Code using ZIP Code
