@@ -35,5 +35,6 @@ end sub
 
 sub validateResponse(response as Object)
     responseBody = response.getString()
+    responseBody = response.getToString()
     m.top.response = parseJson(responseBody)
 end sub
