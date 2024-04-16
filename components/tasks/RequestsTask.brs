@@ -11,24 +11,25 @@ sub makeRequest()
         request.initClientCertificates()
         ' request.enableEncodings(true) ' Check this required '
     end if
-    request.setRequest(m.top.request.requesttype)
-    if m.top.request.requesttype = "get"
+    requestType = ucase(m.top.request.requesttype)
+    request.setRequest(requestType)
+    if requestType = "GET"
         queryParams = "?"
         params = m.top.request.payload.keys()
         for each param in params:
             queryParams += param + "=" + m.top.request.payload[param] + "&"
         end for
-        queryParams = right(queryParams, 1)
+        queryParams = left(queryParams, len(queryParams) - 1)
         request.setUrl(m.top.request.api + queryParams)
-        response = request.getToString()
+        request.getToString()
         ' response = request.asyncGetToString() ' TBD '
-    else if m.top.request.requesttype = "post"
+    else if requestType = "POST"
         request.addHeader("Content-Type", "application/json")
         payload = formatJson(m.top.request.params)
         request.setUrl(m.top.request.api)
         request.asyncPostFromString(payload)
     end if
-    message = wait(5000, request)
+    message = wait(5000, port)
     m.top.request = {}
     validateResponse(message)
 end sub
