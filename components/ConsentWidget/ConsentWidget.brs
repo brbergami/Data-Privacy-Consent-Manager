@@ -9,7 +9,7 @@ sub init()
     else
         checkUnavailableZones()
         getZIPCode()
-        createUSPScall()
+        createIPApiCall()
         checkUserCanConsent()
         m.userCannotConsent = false
     end if
@@ -66,14 +66,14 @@ end sub
 
 ' Get State Code using ZIP Code
 sub createIPApiCall()
-    m.requestStateCode = createObject("roSGNode", "RequestsTask")
-    m.requestStateCode.observeFieldScoped("response", "onUSPScallResponse")
-    m.requestStateCode.request = {
-        ' requesttype: "get" ' Make use of this field
+    m.requestRegion = createObject("roSGNode", "RequestsTask")
+    m.requestRegion.observeFieldScoped("response", "onIPApiCallResponse")
+    m.requestRegion.request = {
+        requesttype: "get"
         api: "http://ip-api.com/json/"
         payload: {}
     }
-    m.requestStateCode.control = "RUN"
+    m.requestRegion.control = "RUN"
 end sub
 
 ' Get Restricted zones on static endpoint. Using this locally atm
@@ -83,17 +83,17 @@ sub checkUnavailableZones()
     m.cannotConsentZones = parsedConsentZones?.cannotConsent
 end sub
 
-sub onUSPScallResponse(event as Object)
-    m.requestStateCode.unobserveFieldScoped("response")
-    m.requestStateCode.control = "STOP"
+sub onIPApiCallResponse(event as Object)
+    m.requestRegion.unobserveFieldScoped("response")
+    m.requestRegion.control = "STOP"
     response = event.getData()
-    m.USPSCode = response?.state
-    m.title.text += m.USPSCode.toStr()
+    m.region = response?.region
+    m.title.text += m.region.toStr()
 end sub
 
 sub checkUserCanConsent()
     for i = 0 to m.cannotConsentZones.count()
-        if m.cannotConsentZones[i] = m.USPSCode
+        if m.cannotConsentZones[i] = m.region
             m.userCannotConsent = true
             for each item in m.checklist.content
                 item.checkOnSelect = false
@@ -113,12 +113,12 @@ sub handleAccept()
     for each item in m.checklist.content
         consent[item.id] = item.checkedState
     end for
-    ' move this to a function but m.USPSCode does't exists
+    ' move this to a function but m.region does't exists
     ' in order to just set globals when the registry section exists
     m.global.addFields({
         consent: {
             consentOptions: consentOptions,
-            userState: m.USPSCode
+            userState: m.region
         }
     })
 end sub
