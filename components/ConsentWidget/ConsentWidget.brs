@@ -23,11 +23,11 @@ sub setStyle()
     m.confirmButton = m.top.findNode("confirmButton")
 
     m.bg.translation = [0, 600]
-    m.bg.color = "0xF8F9FA"
+    m.bg.color = "0x1F2430"
     m.bg.height = 480
     m.bg.width = 1920
 
-    m.checklist.translation = [20, 20]
+    m.checklist.translation = [50, 50]
     checkListContent = createObject("roSGNode", "ContentNode")
     checkListItem1 = checkListContent.createChild("ContentNode")
     checkListItem1.update({
@@ -45,11 +45,15 @@ sub setStyle()
     }, true)
 
     m.title.text = "Data Consent options for "
-    m.title.font = "MediumBoldSystemFont"
-    m.title.translation = [960, 640]
+    m.title.font = "font:MediumBoldSystemFont"
+    m.title.translation = [960, 100]
 
     m.confirmButton.text = "Accept"
+    m.confirmButton.iconUri = ""
+    m.confirmButton.showFocusFootprint = true
+    m.confirmButton.minWidth = 280
     m.confirmButton.focusable = true
+    m.confirmButton.translation = [1560, 320]
 end sub
 
 ' Get ZIP Code
@@ -88,7 +92,7 @@ sub onIPApiCallResponse(event as Object)
     m.requestRegion.control = "STOP"
     response = event.getData()
     m.region = response?.region
-    m.title.text += m.region.toStr()
+    m.title.text += m.region
 end sub
 
 sub checkUserCanConsent()
