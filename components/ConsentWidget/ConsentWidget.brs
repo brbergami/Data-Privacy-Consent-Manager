@@ -3,9 +3,7 @@ sub init()
     setStyle()
     ' requestZones()
     if userGaveConsentPreviously()
-        getRegistryEntry("user")
-        ' set in the
-        ' dismiss this widget
+        closeWidget()
     else
         checkUnavailableZones()
         getZIPCode()
@@ -125,6 +123,11 @@ sub handleAccept()
             userState: m.region
         }
     })
+    closeWidget()
+end sub
+
+sub closeWidget()
+    m.top.close()
 end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
