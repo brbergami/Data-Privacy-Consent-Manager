@@ -1,15 +1,16 @@
 ' TDB: scenario when stored differs from actual
 sub init()
-    setStyle()
-    ' requestZones()
+    m.top.visible = false
     if userGaveConsentPreviously()
         closeWidget()
     else
         checkUnavailableZones()
         getZIPCode()
         createIPApiCall()
-        checkUserCanConsent()
         m.userCannotConsent = false
+        checkUserCanConsent()
+        setStyle()
+        m.top.visible = true
     end if
 end sub
 
