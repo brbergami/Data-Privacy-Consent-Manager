@@ -7,7 +7,7 @@ sub init()
         checkUnavailableZones()
         getZIPCode()
         createIPApiCall()
-        m.userCannotConsent = false
+        m.userCanConsent = true ' So the checkbox is enabled by default
         checkUserCanConsent()
         setStyle()
         m.top.visible = true
@@ -53,6 +53,7 @@ sub setStyle()
     m.confirmButton.minWidth = 280
     m.confirmButton.focusable = true
     m.confirmButton.translation = [1560, 320]
+    m.confirmButton.setFocus(true)
 end sub
 
 ' Get ZIP Code
@@ -81,23 +82,22 @@ end sub
 
 ' Get Restricted zones on static endpoint. Using this locally atm
 sub checkUnavailableZones()
-    ' There's a KI with this not being able to read when is in another project folder
     parsedConsentZones = parseJson(readAsciiFile("pkg:/source/consentZones.json"))
-    m.cannotConsentZones = parsedConsentZones?.cannotConsent
+    m.cannotConsentZones = parsedConsentZones.cannotConsent
 end sub
 
 sub onIPApiCallResponse(event as Object)
     m.requestRegion.unobserveFieldScoped("response")
     m.requestRegion.control = "STOP"
     response = event.getData()
-    m.region = response?.region
-    m.title.text += m.region
+    m.userRegion = response?.region
+    m.title.text += m.userRegion
 end sub
 
 sub checkUserCanConsent()
-    for i = 0 to m.cannotConsentZones.count()
-        if m.cannotConsentZones[i] = m.region
-            m.userCannotConsent = true
+    for zones = 0 to m.cannotConsentZones.count()
+        if m.cannotConsentZones[zones] = m.userRegion
+            m.userCanConsent = false
             for each item in m.checklist.content
                 item.checkOnSelect = false
                 item.checkedState = true
@@ -116,12 +116,12 @@ sub handleAccept()
     for each item in m.checklist.content
         consent[item.id] = item.checkedState
     end for
-    ' move this to a function but m.region does't exists
+    ' move this to a function but m.userRegion does't exists
     ' in order to just set globals when the registry section exists
     m.global.addFields({
         consent: {
             consentOptions: consentOptions,
-            userState: m.region
+            userState: m.userRegion
         }
     })
     closeWidget()
@@ -139,8 +139,11 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
                 handleAccept()
             end if
             handled = true
+        else if key = "back"
+            closeWidget()
+            handled = true
         else if key = "left"
-            if m.userCannotConsent = false
+            if m.userCanConsent = true
                 m.checklist.setFocus(true)
             end if
             handled = true
