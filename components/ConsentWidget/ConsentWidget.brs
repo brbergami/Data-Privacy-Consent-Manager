@@ -26,20 +26,18 @@ sub setStyle()
     m.bg.height = 480
     m.bg.width = 1920
 
-    m.checklist.translation = [50, 50]
-    checkListContent = createObject("roSGNode", "ContentNode")
-    checkListItem1 = checkListContent.createChild("ContentNode")
+    m.checklist.translation = [100, 85]
+    m.checklist.content = createObject("roSGNode", "ContentNode")
+    checkListItem1 = m.checklist.content.createChild("ContentNode")
     checkListItem1.update({
-        title: "thirdParty"
-        text: "I give consent to third parties"
-        checkedState: false
+        title: "To third parties",
+        checkedState: false,
         opacity: 1
     }, true)
-    checkListItem2 = checkListContent.createChild("ContentNode")
+    checkListItem2 = m.checklist.content.createChild("ContentNode")
     checkListItem2.update({
-        title: "tos"
-        text: "I accept terms and conditions"
-        checkedState: false
+        title: "Terms and Conditions",
+        checkedState: false,
         opacity: 1
     }, true)
 
