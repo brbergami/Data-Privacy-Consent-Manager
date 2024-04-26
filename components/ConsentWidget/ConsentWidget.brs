@@ -54,19 +54,6 @@ sub setStyle()
     m.confirmButton.setFocus(true)
 end sub
 
-' Get ZIP Code
-sub getZIPCode()
-    m.channelStore = createObject("roSGNode", "ChannelStore")
-    m.channelStore.observeField("userRegionData", "onUserRegionDataChanges")
-    m.channelStore.command = "getUserRegionData"
-end sub
-
-sub onUserRegionDataChanges(event as Object)
-    region = event.getData()
-    m.zipCode = region.zip
-end sub
-
-' Get State Code using ZIP Code
 sub createIPApiCall()
     m.requestRegion = createObject("roSGNode", "RequestsTask")
     m.requestRegion.observeFieldScoped("response", "onIPApiCallResponse")
