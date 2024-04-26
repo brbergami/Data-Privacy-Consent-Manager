@@ -118,21 +118,29 @@ end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return false
-    if press
-        if key = "OK"
-            if m.confirmButton.hasFocus()
-                handleAccept()
-                return true
-            end if
-        else if key = "back"
-            closeWidget()
+    if key = "OK"
+        if m.confirmButton.hasFocus()
+            handleAccept()
             return true
-        else if key = "left"
-            if m.userCanConsent = true
-                m.checklist.setFocus(true)
-            end if
-            handled = true
         end if
+    else if key = "back"
+        closeWidget()
+        return true
+    else if key = "left"
+        if m.userCanConsent = true
+            m.checklist.setFocus(true)
+        end if
+        return true
+    else if key = "up"
+        if m.checklist.isInFocusChain()
+            m.checklist.getChild(0).setFocus(true)
+        end if
+        return true
+    else if key = "down"
+        if m.checklist.isInFocusChain()
+            m.checklist.getChild(1).setFocus(true)
+        end if
+        return true
     end if
     return false
 end function
