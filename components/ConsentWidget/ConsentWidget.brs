@@ -117,16 +117,16 @@ sub closeWidget()
 end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
-    handled = false
+    if not press then return false
     if press
         if key = "OK"
             if m.confirmButton.hasFocus()
                 handleAccept()
+                return true
             end if
-            handled = true
         else if key = "back"
             closeWidget()
-            handled = true
+            return true
         else if key = "left"
             if m.userCanConsent = true
                 m.checklist.setFocus(true)
@@ -134,5 +134,5 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             handled = true
         end if
     end if
-    return handled
+    return false
 end function
