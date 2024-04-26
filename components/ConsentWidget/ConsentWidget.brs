@@ -65,12 +65,6 @@ sub createIPApiCall()
     m.requestRegion.control = "RUN"
 end sub
 
-' Get Restricted zones on static endpoint. Using this locally atm
-sub checkUnavailableZones()
-    parsedConsentZones = parseJson(readAsciiFile("pkg:/source/consentZones.json"))
-    m.cannotConsentZones = parsedConsentZones.cannotConsent
-end sub
-
 sub onIPApiCallResponse(event as Object)
     m.requestRegion.unobserveFieldScoped("response")
     m.requestRegion.control = "STOP"
@@ -78,6 +72,13 @@ sub onIPApiCallResponse(event as Object)
     m.userRegion = response?.region
     m.title.text += m.userRegion
 end sub
+
+' Get Restricted zones on static endpoint. Using this locally atm
+sub checkUnavailableZones()
+    parsedConsentZones = parseJson(readAsciiFile("pkg:/source/consentZones.json"))
+    m.cannotConsentZones = parsedConsentZones.cannotConsent
+end sub
+
 
 sub checkUserCanConsent()
     for zones = 0 to m.cannotConsentZones.count()
@@ -88,12 +89,11 @@ sub checkUserCanConsent()
                 item.checkedState = true
                 item.opacity = 0.5
             end for
-            m.checklist.isFocusable = false
             m.confirmButton.setFocus(true)
+            return
         end if
-        return
     end for
-    m.checklist.setFocus(true)
+    m.checklist.content.getChild(0).setFocus(true)
 end sub
 
 sub handleAccept()
