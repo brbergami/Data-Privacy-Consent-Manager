@@ -47,9 +47,9 @@ sub setStyle()
 
     m.confirmButton.text = "Accept"
     m.confirmButton.iconUri = ""
+    m.confirmButton.focusedIconUri = ""
     m.confirmButton.showFocusFootprint = true
-    m.confirmButton.minWidth = 280
-    m.confirmButton.focusable = true
+    m.confirmButton.maxWidth = 280
     m.confirmButton.translation = [1560, 320]
     m.confirmButton.setFocus(true)
 end sub

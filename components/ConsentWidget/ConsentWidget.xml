@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<component name="ConsentWidget" extends="Group" >
+<component name="ConsentWidget" extends="Group" initialFocus="confirmButton" >
     <script type="text/brightscript" uri="ConsentWidget.brs" />
     <script type="text/brightscript" uri="RegistryService.brs" />
     <interface>
