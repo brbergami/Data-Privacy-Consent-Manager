@@ -1,15 +1,15 @@
 ' TDB: scenario when stored differs from actual
 sub init()
+    m.top.id = "consentWidget"
     m.top.visible = false
     if userGaveConsentPreviously()
         closeWidget()
     else
         checkUnavailableZones()
-        getZIPCode()
         createIPApiCall()
         m.userCanConsent = true ' So the checkbox is enabled by default
-        checkUserCanConsent()
         setStyle()
+        checkUserCanConsent()
         m.top.visible = true
     end if
 end sub
