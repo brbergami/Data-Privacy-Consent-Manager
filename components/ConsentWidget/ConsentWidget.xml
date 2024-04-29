@@ -3,10 +3,6 @@
 <component name="ConsentWidget" extends="Group" initialFocus="confirmButton" >
     <script type="text/brightscript" uri="ConsentWidget.brs" />
     <script type="text/brightscript" uri="RegistryService.brs" />
-    <interface>
-        <field id="availableZones" type="assocarray" value="{}" />
-        <field id="userAccepted" type="boolean" />
-    </interface>
     <children>
         <Group>
             <Rectangle
