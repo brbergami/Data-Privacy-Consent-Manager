@@ -1,3 +1,4 @@
 out
 components/.DS_Store
 .vscode/settings.json
+.env
