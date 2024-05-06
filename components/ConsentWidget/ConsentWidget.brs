@@ -73,17 +73,17 @@ sub onIPApiCallResponse(event as Object)
     m.requestRegion.unobserveFieldScoped("response")
     m.requestRegion.control = "STOP"
     response = event.getData()
-    m.userRegion = response?.region
-    m.title.text += m.userRegion
+    m.userRegion = response.region
+    m.title.text += m.userRegion + " (" + response.city + ")."
     checkUserCanConsent()
 end sub
 
 ' Get Restricted zones on static endpoint. Using this locally atm
+' Then it will be moved to the same repo
 sub checkUnavailableZones()
     parsedConsentZones = parseJson(readAsciiFile("pkg:/source/consentZones.json"))
     m.cannotConsentZones = parsedConsentZones.cannotConsent
 end sub
-
 
 sub checkUserCanConsent()
     for zones = 0 to m.cannotConsentZones.count()
