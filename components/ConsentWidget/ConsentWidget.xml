@@ -11,6 +11,9 @@
                 <CheckList
                     id = "checklist"
                     />
+                <Rectangle
+                    id = "separator"
+                    />
                 <Label
                     id = "title"
                     />

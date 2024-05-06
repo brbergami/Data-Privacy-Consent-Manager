@@ -18,6 +18,7 @@ sub setStyle()
     m.bg = m.top.findNode("bg")
     m.checklist = m.top.findNode("checklist")
     m.checklistOptions = m.top.findNode("checklistOptions")
+    m.separator = m.top.findNode("separator")
     m.title = m.top.findNode("title")
     m.confirmButton = m.top.findNode("confirmButton")
 
@@ -26,7 +27,7 @@ sub setStyle()
     m.bg.height = 480
     m.bg.width = 1920
 
-    m.checklist.translation = [100, 85]
+    m.checklist.translation = [150, 120]
     m.checklist.content = createObject("roSGNode", "ContentNode")
     checkListItem1 = m.checklist.content.createChild("ContentNode")
     checkListItem1.update({
@@ -41,16 +42,20 @@ sub setStyle()
         opacity: 1
     }, true)
 
+    m.separator.translation = [960, 40]
+    m.separator.color = "0xD3D3D3"
+    m.separator.height = 400
+    m.separator.width = 2
+
     m.title.text = "Data Consent options for "
     m.title.font = "font:MediumBoldSystemFont"
-    m.title.translation = [960, 100]
+    m.title.translation = [1110, 120]
 
     m.confirmButton.text = "Accept"
-    m.confirmButton.iconUri = ""
-    m.confirmButton.focusedIconUri = ""
     m.confirmButton.showFocusFootprint = true
+    m.confirmButton.minWidth = 280
     m.confirmButton.maxWidth = 280
-    m.confirmButton.translation = [1560, 320]
+    m.confirmButton.translation = [1550, 300]
     m.confirmButton.setFocus(true)
 end sub
 
