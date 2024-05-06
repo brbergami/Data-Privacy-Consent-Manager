@@ -7,9 +7,8 @@ sub init()
     else
         checkUnavailableZones()
         createIPApiCall()
-        m.userCanConsent = true ' So the checkbox is enabled by default
         setStyle()
-        checkUserCanConsent()
+        m.userCanConsent = true ' So the checkbox is enabled by default
         m.top.visible = true
     end if
 end sub
@@ -76,6 +75,7 @@ sub onIPApiCallResponse(event as Object)
     response = event.getData()
     m.userRegion = response?.region
     m.title.text += m.userRegion
+    checkUserCanConsent()
 end sub
 
 ' Get Restricted zones on static endpoint. Using this locally atm
@@ -89,11 +89,8 @@ sub checkUserCanConsent()
     for zones = 0 to m.cannotConsentZones.count()
         if m.cannotConsentZones[zones] = m.userRegion
             m.userCanConsent = false
-            for each item in m.checklist.content
-                item.checkOnSelect = false
-                item.checkedState = true
-                item.opacity = 0.5
-            end for
+            m.checklist.checkOnSelect = false
+            m.checklist.checkedState = [true, true]
             m.confirmButton.setFocus(true)
             return
         end if
@@ -134,18 +131,21 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
     else if key = "left"
         if m.userCanConsent = true
             m.checklist.setFocus(true)
+            return true
         end if
+    else if key = "right" ' This for clarity
+        m.confirmButton.setFocus(true)
         return true
     else if key = "up"
-        if m.checklist.isInFocusChain()
-            m.checklist.getChild(0).setFocus(true)
+        if m.checklist.content.isInFocusChain()
+            m.checklist.content.getChild(0).setFocus(true)
+            return true
         end if
-        return true
     else if key = "down"
-        if m.checklist.isInFocusChain()
-            m.checklist.getChild(1).setFocus(true)
+        if m.checklist.content.isInFocusChain()
+            m.checklist.content.getChild(1).setFocus(true)
+            return true
         end if
-        return true
     end if
     return false
 end function
