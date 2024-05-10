@@ -1,0 +1,78 @@
+{
+    "version": "0.2.0",
+    "rendezvousTracking": false,
+    "configurations": [
+      {
+        "name": "TEST",
+        "type": "brightscript",
+        "request": "launch",
+        "host": "${env:ROKU_DEV_TARGET}",
+        "password": "${env:ROKU_DEV_PASSWORD}",
+        "rootDir": "${workspaceFolder}",
+        "envFile": "${workspaceFolder}/.env"
+      },
+
+      {
+        "name": "test",
+        "type": "brightscript",
+        "request": "launch",
+        "consoleOutput": "full",
+        "internalConsoleOptions": "neverOpen",
+        "preLaunchTask": "build-tests",
+        "envFile": "${workspaceFolder}/.env",
+        "host": "${env:ROKU_DEV_TARGET}",
+        "password": "${env:ROKU_DEVPASSWORD}",
+        "retainStagingFolder": true,
+        "stopOnEntry": false,
+        "files": [
+          "!**/images/*.*",
+          "!**/fonts/*.*",
+          "!*.jpg",
+          "!*.png",
+          "*",
+          "*.*",
+          "**/*.*",
+          "!*.zip",
+          "!**/*.zip"
+        ],
+        "rootDir": "${workspaceFolder}/build",
+        "sourceDirs": ["${workspaceFolder}/src"],
+        "enableDebuggerAutoRecovery": true,
+        "stopDebuggerOnAppExit": true,
+        "enableVariablesPanel": false,
+        "injectRaleTrackerTask": false,
+        "enableDebugProtocol": false
+      },
+      {
+        "name": "tdd",
+        "type": "brightscript",
+        "request": "launch",
+        "consoleOutput": "full",
+        "internalConsoleOptions": "neverOpen",
+        "preLaunchTask": "build-tdd",
+        "envFile": "${workspaceFolder}/.vscode/.env",
+        "host": "${env:ROKU_DEV_TARGET}",
+        "password": "${env:ROKU_DEVPASSWORD}",
+        "retainStagingFolder": true,
+        "stopOnEntry": false,
+        "files": [
+          "!**/images/*.*",
+          "!**/fonts/*.*",
+          "!*.jpg",
+          "!*.png",
+          "*",
+          "*.*",
+          "**/*.*",
+          "!*.zip",
+          "!**/*.zip"
+        ],
+        "rootDir": "${workspaceFolder}/build",
+        "sourceDirs": ["${workspaceFolder}/src"],
+        "enableDebuggerAutoRecovery": true,
+        "stopDebuggerOnAppExit": true,
+        "enableVariablesPanel": false,
+        "injectRaleTrackerTask": false,
+        "enableDebugProtocol": false
+      }
+    ]
+  }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="ConsentWidget" extends="Group" initialFocus="confirmButton" >
+    <script type="text/brightscript" uri="ConsentWidget.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/RegistryService.brs" />
+    <interface>
+        <field id="close" type="boolean" value="false" />
+    </interface>
+    <children>
+        <Group>
+            <Rectangle
+                id="screenMask"
+                />
+            <Rectangle
+                id = "bg"
+                >
+                <CheckList
+                    id = "checklist"
+                    />
+                <Rectangle
+                    id = "separator"
+                    />
+                <Label
+                    id = "title"
+                    />
+                <Button
+                    id = "confirmButton"
+                    />
+            </Rectangle>
+        </Group>
+    </children>
+</component>

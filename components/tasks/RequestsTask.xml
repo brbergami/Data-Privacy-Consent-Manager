@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="RequestsTask" extends="Task">
+    <interface>
+        <field id="content" type="node" />
+        <field id="request" type="assocarray" />
+        <field id="response" type="assocarray" value="{}" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/tasks/RequestsTask.brs" />
+</component>
