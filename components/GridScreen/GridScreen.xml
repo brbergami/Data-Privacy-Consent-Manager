@@ -3,7 +3,7 @@
 
 <component name="GridScreen" extends="Group"  initialFocus="RowList">
     <script type="text/brightscript" uri="GridScreen.brs" />
-    <script type="text/brightscript" uri="pkg:/source/utils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/utils.brs" />
 	<interface>
         <!-- Specifies the content for the Grid -->
         <field id="content" type="node" alias="RowList.content" />

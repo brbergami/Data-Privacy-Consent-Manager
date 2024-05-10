@@ -2,7 +2,10 @@
 sub init()
     m.top.id = "consentWidget"
     m.top.visible = false
-    if userGaveConsentPreviously()
+    if registrySectionExists("privacyConsent")
+        m.global.addFields({
+            userConsent: getRegistry("userConsent", "privacyConsent")
+        })
         closeWidget()
     else
         checkUnavailableZones()
@@ -112,18 +115,20 @@ sub checkUserCanConsent()
 end sub
 
 sub handleAccept()
-    consentOptions = {}
+    consentDetails = {}
     for each item in m.checklist.content.getChildren(-1, 0)
-        consentOptions[item.id] = item.checkedState
+        consentDetails[item.id] = item.checkedState
     end for
     ' move this to a function but m.userRegion does't exists
     ' in order to just set globals when the registry section exists
+    consentData = {
+        consentDetails: consentDetails,
+        userState: m.userRegion
+    }
     m.global.addFields({
-        consent: {
-            consentOptions: consentOptions,
-            userState: m.userRegion
-        }
+        userConsent: consentData
     })
+    setRegistry("userConsent", consentData, "privacyConsent")
     closeWidget()
 end sub
 
