@@ -6,6 +6,9 @@
     <children>
         <Group>
             <Rectangle
+                id="screenMask"
+                />
+            <Rectangle
                 id = "bg"
                 >
                 <CheckList

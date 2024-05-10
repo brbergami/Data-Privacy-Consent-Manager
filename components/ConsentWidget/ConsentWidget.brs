@@ -14,12 +14,18 @@ sub init()
 end sub
 
 sub setStyle()
+    m.screenMask = m.top.findNode("screenMask")
     m.bg = m.top.findNode("bg")
     m.checklist = m.top.findNode("checklist")
     m.checklistOptions = m.top.findNode("checklistOptions")
     m.separator = m.top.findNode("separator")
     m.title = m.top.findNode("title")
     m.confirmButton = m.top.findNode("confirmButton")
+
+    m.screenMask.color = "0x000000"
+    m.screenMask.opacity = 0.8
+    m.screenMask.height = 600
+    m.screenMask.width = 1920
 
     m.bg.translation = [0, 600]
     m.bg.color = "0x1F2430"
