@@ -133,12 +133,7 @@ end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return false
-    if key = "OK"
-        if m.confirmButton.hasFocus()
-            handleAccept()
-            return true
-        end if
-    else if key = "back"
+    if  key = "back"
         closeWidget()
         return true
     else if key = "left"
