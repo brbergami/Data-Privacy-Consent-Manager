@@ -3,6 +3,9 @@
 <component name="ConsentWidget" extends="Group" initialFocus="confirmButton" >
     <script type="text/brightscript" uri="ConsentWidget.brs" />
     <script type="text/brightscript" uri="RegistryService.brs" />
+    <interface>
+        <field id="close" type="boolean" value="false" />
+    </interface>
     <children>
         <Group>
             <Rectangle

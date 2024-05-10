@@ -8,6 +8,7 @@ sub init()
         checkUnavailableZones()
         createIPApiCall()
         setStyle()
+        hookObservers()
         m.userCanConsent = true ' So the checkbox is enabled by default
         m.top.visible = true
     end if
@@ -36,12 +37,14 @@ sub setStyle()
     m.checklist.content = createObject("roSGNode", "ContentNode")
     checkListItem1 = m.checklist.content.createChild("ContentNode")
     checkListItem1.update({
+        id: "thidParty",
         title: "To third parties",
         checkedState: false,
         opacity: 1
     }, true)
     checkListItem2 = m.checklist.content.createChild("ContentNode")
     checkListItem2.update({
+        id: "termsAndConditions",
         title: "Terms and Conditions",
         checkedState: false,
         opacity: 1
@@ -62,6 +65,10 @@ sub setStyle()
     m.confirmButton.maxWidth = 280
     m.confirmButton.translation = [1550, 300]
     m.confirmButton.setFocus(true)
+end sub
+
+sub hookObservers()
+    m.confirmButton.observeField("buttonSelected", "handleAccept")
 end sub
 
 sub createIPApiCall()
@@ -106,8 +113,8 @@ end sub
 
 sub handleAccept()
     consentOptions = {}
-    for each item in m.checklist.content
-        consent[item.id] = item.checkedState
+    for each item in m.checklist.content.getChildren(-1, 0)
+        consentOptions[item.id] = item.checkedState
     end for
     ' move this to a function but m.userRegion does't exists
     ' in order to just set globals when the registry section exists
@@ -121,7 +128,7 @@ sub handleAccept()
 end sub
 
 sub closeWidget()
-    m.top.close()
+    m.top.close = true
 end sub
 
 function onKeyEvent(key as String, press as Boolean) as Boolean

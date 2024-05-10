@@ -1,9 +1,9 @@
 sub showConsentWidget()
     m.consentWidget = CreateObject("roSGNode", "ConsentWidget")
-    m.global.observeField("consent", "onConsentGiven")
+    m.consentWidget.observeField("close", "onConsentSet")
     showScreen(m.consentWidget)
 end sub
 
-sub onConsentGiven(event as Object)
+sub onConsentSet(event as Object)
     closeScreen(m.consentWidget)
 end sub
